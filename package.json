@@ -5,10 +5,12 @@
   "repository": "git@github.com:artkwi/familiada-js.git",
   "author": "<artur.kwiatkowski@kissdigital.com>",
   "license": "MIT",
+  "type": "module",
   "scripts": {
     "test": "yarn jest"
   },
   "devDependencies": {
     "jest": "^29.5.0"
-  }
+  },
+  "dependencies": {}
 }
