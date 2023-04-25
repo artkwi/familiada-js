@@ -1,4 +1,16 @@
+@font-face {
+  font-family: "familiada";
+  src: url("assets/fonts/familiada.ttf") format("truetype");
+}
+
+
+body {
+  font-family: "familiada", monospace;
+  text-transform: uppercase;
+}
+
 .teams {
   display: flex;
   justify-content: space-between;
 }
+

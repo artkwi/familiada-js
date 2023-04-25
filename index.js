@@ -48,12 +48,17 @@ const playRound = (leftQuestions) => {
   );
   let playersLeftQuestionAnswers = [...questionAnswers];
 
-  const answersEl = document.querySelector("#answers");
+  const usersAnswersEl = document.querySelector("#users-answers");
+  const allAnswersEl = document.querySelector("#answers");
 
-  questionAnswers.forEach((answer) => {
-    const answerEl = document.createElement("li");
-    answerEl.innerHTML = answer.ans;
-    answersEl.appendChild(answerEl);
+  questionAnswers.forEach((answer, i) => {
+    const allAnswerEl = document.createElement("li");
+    allAnswerEl.innerHTML = `${i + 1}. ${answer.ans}`;
+    allAnswersEl.appendChild(allAnswerEl);
+
+    const usersAnswerEl = document.createElement("li");
+    usersAnswerEl.innerHTML = `${i + 1}. -----------------------------------`;
+    usersAnswersEl.appendChild(usersAnswerEl);
   });
 
   console.log(
@@ -94,8 +99,19 @@ const playRound = (leftQuestions) => {
       ];
       playersQuestionAnswers.push(currentAnswerText);
 
+      // update asked questions on board
+      if (playerAnswer.ans) {
+        const usersAnswersElements = document.querySelectorAll(
+          "#users-answers > li"
+        );
+
+        usersAnswersElements[
+          playerAnswer.lp - 1
+        ].innerHTML = `${playerAnswer.lp}. ${playerAnswer.ans}`;
+      }
+
       // all questions answered - current team win
-      if (playersLeftQuestionAnswers.length === 0) {
+      if (playersLeftQuestionAnswers.length === 0 || mistakes === 3) {
         currentTeam.points += points;
         updatePoints();
 
