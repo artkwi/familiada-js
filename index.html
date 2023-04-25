@@ -1,13 +1,34 @@
 <!DOCTYPE html>
 <html lang="pl">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Familiada</title>
-</head>
-<body>
-  <h1>Familiada</h1>
-  <script type="module" src="index.js"></script>
-</body>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Familiada</title>
+		<link rel="stylesheet" href="style.css">
+	</head>
+	<body>
+		<h1>Familiada</h1>
+		<div id="board">
+			<h2 id="question"></h2>
+			<div class="teams">
+				<div>
+					<div id="team1"></div>
+					<div id="team1-mistakes"></div>
+				</div>
+				<ul id="answers"></ul>
+				<div>
+					<div id="team2"></div>
+					<div id="team2-mistakes"></div>
+				</div>
+			</div>
+			<form id="answer-form" action="">
+				<input type="text" id="answer-input" name="answer-input">
+				<button type="submit">Confirm answer</button>
+			</form>
+			<p id="points">0</p>
+			<p id="mistakes">0</p>
+		</div>
+		<script type="module" src="index.js"></script>
+	</body>
 </html>
