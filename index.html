@@ -8,28 +8,32 @@
 		<link rel="stylesheet" href="style.css">
 	</head>
 	<body>
-		<h1>Familiada</h1>
-		<div id="board">
-			<h2 id="question"></h2>
-			<div class="teams">
-				<div>
-					<div id="team1"></div>
-					<div id="team1-mistakes"></div>
+		<main class="game">
+			<h1>Familiada</h1>
+			<div id="board" class="board">
+				<h2 id="question" class="question"></h2>
+				<div class="teams">
+					<div class="team team1">
+						<div id="team1"></div>
+					</div>
+					<div class="users-answers-wrapper">
+						<div id="team1-mistakes" class="team-mistakes"></div>
+						<ul id="users-answers" class="users-answers"></ul>
+						<div id="team2-mistakes" class="team-mistakes"></div>
+					</div>
+					<div class="team team2">
+						<div id="team2"></div>
+					</div>
 				</div>
-				<ul id="users-answers"></ul>
-				<div>
-					<div id="team2"></div>
-					<div id="team2-mistakes"></div>
-				</div>
+				<form id="answer-form" action="">
+					<input type="text" id="answer-input" name="answer-input">
+					<button type="submit">Confirm answer</button>
+				</form>
+				<p id="points">0</p>
+				<p id="mistakes">0</p>
+				<ul id="answers" class="answers"></ul>
 			</div>
-			<form id="answer-form" action="">
-				<input type="text" id="answer-input" name="answer-input">
-				<button type="submit">Confirm answer</button>
-			</form>
-			<p id="points">0</p>
-			<p id="mistakes">0</p>
-			<ul id="answers"></ul>
-		</div>
+		</main>
 		<script type="module" src="index.js"></script>
 	</body>
 </html>

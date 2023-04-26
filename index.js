@@ -1,8 +1,8 @@
 import { Team } from "./Team.js";
 import { questions } from "./familiada-pytania.js";
 
-const teamRed = new Team("Red");
-const teamBlue = new Team("Blue");
+const teamRed = new Team("Czerwoni");
+const teamBlue = new Team("Niebiescy");
 const teams = [teamRed, teamBlue];
 const pointsEl = document.querySelector("#points");
 const mistakesEl = document.querySelector("#mistakes");
@@ -16,6 +16,11 @@ const startingTeamNumber = Math.floor(Math.random() * teams.length);
 let currentTeamNumber = startingTeamNumber;
 const startingTeam = teams[startingTeamNumber];
 const endingTeam = teams.find((team) => team.name !== startingTeam.name);
+
+const updatePoints = () => {
+  team1El.innerHTML = `${teams[0].name} \n<span>${teams[0].points}</span>`;
+  team2El.innerHTML = `${teams[1].name} \n<span>${teams[1].points}</span>`;
+};
 
 const playRound = (leftQuestions) => {
   let points = 0;
@@ -57,7 +62,7 @@ const playRound = (leftQuestions) => {
     allAnswersEl.appendChild(allAnswerEl);
 
     const usersAnswerEl = document.createElement("li");
-    usersAnswerEl.innerHTML = `${i + 1}. -----------------------------------`;
+    usersAnswerEl.innerHTML = `${i + 1}. ------------------------------`;
     usersAnswersEl.appendChild(usersAnswerEl);
   });
 
@@ -68,10 +73,7 @@ const playRound = (leftQuestions) => {
 
   const formEl = document.querySelector("#answer-form");
 
-  const updatePoints = () => {
-    team1El.innerHTML = `${teams[0].name}: ${teams[0].points}`;
-    team2El.innerHTML = `${teams[1].name}: ${teams[1].points}`;
-  };
+  delete leftQuestions[currentQuestion];
 
   const handleAnswer = (e) => {
     e.preventDefault();
@@ -111,7 +113,11 @@ const playRound = (leftQuestions) => {
       }
 
       // all questions answered - current team win
-      if (playersLeftQuestionAnswers.length === 0 || mistakes === 3) {
+      if (
+        playersLeftQuestionAnswers.length === 0 ||
+        mistakes === 3 ||
+        mistakes === 4
+      ) {
         currentTeam.points += points;
         updatePoints();
 
@@ -138,10 +144,11 @@ const playRound = (leftQuestions) => {
         currentTeam = firstTeam;
         currentTeamNumber = currentTeamNumber === 0 ? 1 : 0;
         updatePoints();
+
+        return;
       }
     }
   };
-
   formEl.addEventListener("submit", (e) => handleAnswer(e));
 
   // while (mistakes < 3) {}
@@ -155,9 +162,12 @@ const playTheGame = () => {
   );
   console.log(questions);
   playRound(leftQuestions);
+  console.log(
+    "🚀 ~ file: index.js:180 ~ playTheGame ~ leftQuestions:",
+    leftQuestions
+  );
 
-  team1El.innerHTML = `${teams[0].name}: ${teams[0].points}`;
-  team2El.innerHTML = `${teams[1].name}: ${teams[1].points}`;
+  updatePoints();
 };
 
 playTheGame();

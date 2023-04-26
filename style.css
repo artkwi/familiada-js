@@ -4,13 +4,82 @@
 }
 
 
+body, * {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
 body {
   font-family: "familiada", monospace;
   text-transform: uppercase;
+  color: #d8c657;
+}
+
+.game {
+  text-align: center;
+}
+
+.question {
+  padding: 30px 0;
+}
+
+.board {
+  background: #131314;
+  margin: 20px 40px;
+  border: 10px outset #6f5ac8;
 }
 
 .teams {
+  display: grid;
+  grid-template-columns: 150px auto 150px;
+  min-height: 160px;
+}
+
+.team {
+  padding: 16px;
+  height: 90px;
+  font-size: 18px;
   display: flex;
-  justify-content: space-between;
+  align-items: center;
+  white-space: pre-line;
+}
+
+.team span {
+  font-size: 28px;
+}
+
+.team1 {
+  background-color: red;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 90px;
+}
+
+.team2 {
+  background-color: blue;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 90px;
+  justify-content: flex-end;
+}
+
+.team-mistakes {
+  font-size: 40px;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  text-align: start;
+  padding: 10px 20px;
+  min-width: 90px;
+}
+
+.users-answers-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.users-answers, .answers {
+  list-style: none;
+  text-align: left;
+  padding: 0;
+  margin: 0;
 }
 
