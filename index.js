@@ -91,7 +91,7 @@ const playRound = (leftQuestions) => {
 
     if (playerAnswer) {
       points += playerAnswer.points;
-      pointsEl.innerHTML = points;
+      pointsEl.innerHTML = `SUMA ${points}`;
 
       playersLeftQuestionAnswers = [
         ...playersLeftQuestionAnswers.filter(
@@ -125,7 +125,7 @@ const playRound = (leftQuestions) => {
       }
     } else {
       mistakes += 1;
-      mistakesEl.innerHTML = mistakes;
+      mistakesEl.innerHTML = `Błędy: ${mistakes}`;
 
       if (currentTeamNumber === 0) {
         team1mistakesEl.innerHTML += "x";

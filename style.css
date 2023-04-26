@@ -1,8 +1,26 @@
 @font-face {
-  font-family: "familiada";
-  src: url("assets/fonts/familiada.ttf") format("truetype");
+  font-family: "raleway-dots";
+  src: url("assets/fonts/RalewayDots-Regular.ttf") format("truetype");
 }
 
+/* TODO - active team */
+@keyframes flashing-red {
+  0%, 100% {
+    background-color: red;
+  }
+  50% {
+    background-color: #131314;
+  }
+}
+
+@keyframes flashing-blue {
+  0%, 100% {
+    background-color: blue;
+  }
+  50% {
+    background-color: #131314;
+  }
+}
 
 body, * {
   box-sizing: border-box;
@@ -11,7 +29,7 @@ body, * {
 }
 
 body {
-  font-family: "familiada", monospace;
+  font-family: monospace, "raleway-dots";
   text-transform: uppercase;
   color: #d8c657;
 }
@@ -41,6 +59,7 @@ body {
   height: 90px;
   font-size: 18px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   white-space: pre-line;
 }
@@ -55,11 +74,21 @@ body {
   border-bottom-right-radius: 90px;
 }
 
+/* TODO - active team */
+.team1.team-active {
+  animation: flashing-red 1s ease-out infinite;
+}
+
 .team2 {
   background-color: blue;
   border-top-left-radius: 15px;
   border-bottom-left-radius: 90px;
   justify-content: flex-end;
+}
+
+/* TODO - active team */
+.team2.team-active {
+  animation: flashing-blue 1s ease-out infinite;
 }
 
 .team-mistakes {
@@ -83,3 +112,26 @@ body {
   margin: 0;
 }
 
+.answer-form {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 240px;
+  margin: 30px auto;
+  gap: 20px;
+}
+
+.input-submit-answer {
+  border: 2px solid #d8c657;
+  padding: 12px 24px;
+  background-color: black;
+  color: #d8c657;
+}
+
+.btn-submit-answer {
+  border: 2px solid #d8c657;
+  padding: 12px 24px;
+  background-color: transparent;
+  color: #d8c657;
+  text-transform: uppercase;
+}

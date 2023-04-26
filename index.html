@@ -13,24 +13,22 @@
 			<div id="board" class="board">
 				<h2 id="question" class="question"></h2>
 				<div class="teams">
-					<div class="team team1">
-						<div id="team1"></div>
-					</div>
+					<div id="team1" class="team team1"></div>
+
 					<div class="users-answers-wrapper">
 						<div id="team1-mistakes" class="team-mistakes"></div>
 						<ul id="users-answers" class="users-answers"></ul>
 						<div id="team2-mistakes" class="team-mistakes"></div>
 					</div>
-					<div class="team team2">
-						<div id="team2"></div>
-					</div>
+
+					<div id="team2" class="team team2"></div>
 				</div>
-				<form id="answer-form" action="">
-					<input type="text" id="answer-input" name="answer-input">
-					<button type="submit">Confirm answer</button>
+				<p id="points">SUMA: 0</p>
+				<p id="mistakes">Błędy: 0</p>
+				<form class="answer-form" id="answer-form" action="">
+					<input class="input-submit-answer" type="text" id="answer-input" name="answer-input" placeholder="Wpisz odpowiedź..." autocomplete="off">
+					<button class="btn-submit-answer" type="submit">Zatwierdź odpowiedź</button>
 				</form>
-				<p id="points">0</p>
-				<p id="mistakes">0</p>
 				<ul id="answers" class="answers"></ul>
 			</div>
 		</main>
