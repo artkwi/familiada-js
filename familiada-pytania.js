@@ -578,10 +578,6 @@ export const questions = {
       lp: 5,
       points: 8,
     },
-    {
-      ans: 7,
-      lp: 6,
-    },
   ],
   "Wymień rodzaje samolotów?": [
     null,

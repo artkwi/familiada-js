@@ -10,7 +10,20 @@ const team1El = document.querySelector("#team1");
 const team2El = document.querySelector("#team2");
 const team1mistakesEl = document.querySelector("#team1-mistakes");
 const team2mistakesEl = document.querySelector("#team2-mistakes");
-const roundNumber = 1;
+const headingEl = document.querySelector("#heading");
+const allAnswersEl = document.querySelector("#answers");
+const usersAnswersEl = document.querySelector("#users-answers");
+const formEl = document.querySelector("#answer-form");
+const submitButtonEl = document.querySelector("#submit-button");
+
+let _roundNumber = 1;
+let points = 0;
+let mistakes = 0;
+let currentTeam = null;
+let firstTeam = null;
+let secondTeam = null;
+let playersQuestionAnswers = [];
+let playersLeftQuestionAnswers = [];
 
 const startingTeamNumber = Math.floor(Math.random() * teams.length);
 let currentTeamNumber = startingTeamNumber;
@@ -22,21 +35,114 @@ const updatePoints = () => {
   team2El.innerHTML = `${teams[1].name} \n<span>${teams[1].points}</span>`;
 };
 
+const updateSum = () => {
+  pointsEl.innerHTML = `SUMA ${points}`;
+};
+
+const finishRound = () => {
+  submitButtonEl.disabled = true;
+  updatePoints();
+  updateSum();
+
+  formEl.removeEventListener("submit", handleAnswer);
+  roundNumber++;
+};
+
+const initBoard = () => {
+  headingEl.innerHTML = `Familiada - runda ${_roundNumber}`;
+  team1mistakesEl.innerHTML = "";
+  team2mistakesEl.innerHTML = "";
+  points = 0;
+  mistakes = 0;
+  updateSum();
+  allAnswersEl.replaceChildren([]);
+  usersAnswersEl.replaceChildren([]);
+  submitButtonEl.disabled = false;
+};
+
+const handleAnswer = (e) => {
+  e.preventDefault();
+  const currentAnswerInput = document.querySelector("#answer-input");
+  const currentAnswerText = currentAnswerInput.value;
+  currentAnswerInput.value = "";
+
+  const playerAnswer = playersLeftQuestionAnswers.find(
+    (answer) => answer.ans.toLowerCase() === currentAnswerText.toLowerCase()
+  );
+
+  if (playerAnswer) {
+    points += playerAnswer.points;
+    updateSum();
+
+    playersLeftQuestionAnswers = [
+      ...playersLeftQuestionAnswers.filter(
+        (answer) => answer.ans.toLowerCase() !== currentAnswerText.toLowerCase()
+      ),
+    ];
+    playersQuestionAnswers.push(currentAnswerText);
+
+    // update asked questions on board
+    if (playerAnswer.ans) {
+      const usersAnswersElements = document.querySelectorAll(
+        "#users-answers > li"
+      );
+
+      usersAnswersElements[
+        playerAnswer.lp - 1
+      ].innerHTML = `${playerAnswer.lp}. ${playerAnswer.ans}`;
+    }
+
+    // all questions answered - current team win
+    if (
+      playersLeftQuestionAnswers.length === 0 ||
+      mistakes === 3 ||
+      mistakes === 4
+    ) {
+      currentTeam.points += points;
+      finishRound();
+
+      return;
+    }
+  } else {
+    mistakes += 1;
+    mistakesEl.innerHTML = `Błędy: ${mistakes}`;
+
+    if (currentTeamNumber === 0) {
+      team1mistakesEl.innerHTML += "x";
+    } else {
+      team2mistakesEl.innerHTML += "x";
+    }
+
+    // 3 mistakes - second team answer once
+    if (mistakes === 3) {
+      currentTeam = secondTeam;
+      currentTeamNumber = currentTeamNumber === 0 ? 1 : 0;
+    }
+
+    // 4 mistakes - first team win
+    if (mistakes === 4) {
+      currentTeam = firstTeam;
+      currentTeamNumber = currentTeamNumber === 0 ? 1 : 0;
+      currentTeam.points += points;
+      finishRound();
+    }
+  }
+};
+
 const playRound = (leftQuestions) => {
-  let points = 0;
-  let mistakes = 0;
+  initBoard();
 
   // select teams answering order
-  let firstTeam = startingTeam;
-  let secondTeam = endingTeam;
+  firstTeam = startingTeam;
+  secondTeam = endingTeam;
 
-  if (roundNumber % 2 == 0) {
+  if (_roundNumber % 2 == 0) {
     firstTeam = endingTeam;
     secondTeam = startingTeam;
     currentTeamNumber = startingTeamNumber === 0 ? 1 : 0;
   }
 
-  let currentTeam = firstTeam;
+  currentTeam = firstTeam;
 
   const questionKeys = Object.keys(leftQuestions);
 
@@ -47,14 +153,11 @@ const playRound = (leftQuestions) => {
 
   questionEl.innerHTML = currentQuestion;
 
-  const playersQuestionAnswers = [];
+  playersQuestionAnswers = [];
   const questionAnswers = Object.values(leftQuestions[currentQuestion]).filter(
     (item) => item != null
   );
-  let playersLeftQuestionAnswers = [...questionAnswers];
-
-  const usersAnswersEl = document.querySelector("#users-answers");
-  const allAnswersEl = document.querySelector("#answers");
+  playersLeftQuestionAnswers = [...questionAnswers];
 
   questionAnswers.forEach((answer, i) => {
     const allAnswerEl = document.createElement("li");
@@ -66,108 +169,39 @@ const playRound = (leftQuestions) => {
     usersAnswersEl.appendChild(usersAnswerEl);
   });
 
-  console.log(
-    "🚀 ~ file: index.js:15 ~ playRound ~ questionAnswers:",
-    questionAnswers
-  );
-
-  const formEl = document.querySelector("#answer-form");
-
   delete leftQuestions[currentQuestion];
 
-  const handleAnswer = (e) => {
-    e.preventDefault();
-    const currentAnswerInput = document.querySelector("#answer-input");
-    const currentAnswerText = currentAnswerInput.value;
-    currentAnswerInput.value = "";
-    console.log(
-      "🚀 ~ file: index.js:56 ~ formEl.addEventListener ~ currentAnswerText:",
-      currentAnswerText
-    );
-
-    const playerAnswer = playersLeftQuestionAnswers.find(
-      (answer) => answer.ans.toLowerCase() === currentAnswerText.toLowerCase()
-    );
-
-    if (playerAnswer) {
-      points += playerAnswer.points;
-      pointsEl.innerHTML = `SUMA ${points}`;
-
-      playersLeftQuestionAnswers = [
-        ...playersLeftQuestionAnswers.filter(
-          (answer) =>
-            answer.ans.toLowerCase() !== currentAnswerText.toLowerCase()
-        ),
-      ];
-      playersQuestionAnswers.push(currentAnswerText);
-
-      // update asked questions on board
-      if (playerAnswer.ans) {
-        const usersAnswersElements = document.querySelectorAll(
-          "#users-answers > li"
-        );
-
-        usersAnswersElements[
-          playerAnswer.lp - 1
-        ].innerHTML = `${playerAnswer.lp}. ${playerAnswer.ans}`;
-      }
-
-      // all questions answered - current team win
-      if (
-        playersLeftQuestionAnswers.length === 0 ||
-        mistakes === 3 ||
-        mistakes === 4
-      ) {
-        currentTeam.points += points;
-        updatePoints();
-
-        return;
-      }
-    } else {
-      mistakes += 1;
-      mistakesEl.innerHTML = `Błędy: ${mistakes}`;
-
-      if (currentTeamNumber === 0) {
-        team1mistakesEl.innerHTML += "x";
-      } else {
-        team2mistakesEl.innerHTML += "x";
-      }
-
-      // 3 mistakes - second team answer once
-      if (mistakes === 3) {
-        currentTeam = secondTeam;
-        currentTeamNumber = currentTeamNumber === 0 ? 1 : 0;
-      }
-
-      // 4 mistakes - first team win
-      if (mistakes === 4) {
-        currentTeam = firstTeam;
-        currentTeamNumber = currentTeamNumber === 0 ? 1 : 0;
-        updatePoints();
-
-        return;
-      }
-    }
-  };
-  formEl.addEventListener("submit", (e) => handleAnswer(e));
+  formEl.addEventListener("submit", handleAnswer);
 
   // while (mistakes < 3) {}
 };
 
 const playTheGame = () => {
   const leftQuestions = { ...questions };
+
+  // observer for _roundNumber
+  Object.defineProperty(window, "roundNumber", {
+    get: function () {
+      return _roundNumber;
+    },
+    set: function (value) {
+      _roundNumber = value;
+      playRound(leftQuestions);
+    },
+  });
+
   console.log(
     "🚀 ~ file: index.js:19 ~ playTheGame ~ leftQuestions:",
     leftQuestions
   );
   console.log(questions);
   playRound(leftQuestions);
-  console.log(
-    "🚀 ~ file: index.js:180 ~ playTheGame ~ leftQuestions:",
-    leftQuestions
-  );
 
   updatePoints();
+};
+
+const myFunction = () => {
+  console.log("zmieniono wartość");
 };
 
 playTheGame();
