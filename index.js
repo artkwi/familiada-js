@@ -30,6 +30,8 @@ let currentTeamNumber = startingTeamNumber;
 const startingTeam = teams[startingTeamNumber];
 const endingTeam = teams.find((team) => team.name !== startingTeam.name);
 
+const jsConfetti = new JSConfetti();
+
 const updatePoints = () => {
   team1El.innerHTML = `${teams[0].name} \n<span>${teams[0].points}</span>`;
   team2El.innerHTML = `${teams[1].name} \n<span>${teams[1].points}</span>`;
@@ -43,6 +45,7 @@ const finishRound = () => {
   submitButtonEl.disabled = true;
   updatePoints();
   updateSum();
+  jsConfetti.addConfetti();
 
   formEl.removeEventListener("submit", handleAnswer);
   roundNumber++;
