@@ -38,9 +38,44 @@ const endingTeam = teams.find((team) => team.name !== startingTeam.name);
 
 const jsConfetti = new JSConfetti();
 
-const updatePoints = () => {
+const audioFail = new Audio("assets/music/fail_v2.mp3");
+const audioCorrect = new Audio("assets/music/correct.mp3");
+const audioAfterRound = new Audio("assets/music/after-round.mp3");
+
+const playFailSound = () => {
+  audioFail.currentTime = 0;
+  audioFail.play();
+};
+
+const playCorrectSound = () => {
+  audioCorrect.currentTime = 0;
+  audioCorrect.play();
+};
+
+const playAfterRoundSound = () => {
+  audioAfterRound.currentTime = 0;
+  audioAfterRound.play();
+};
+
+const updateBoardPoints = () => {
   team1El.innerHTML = `${teams[0].name} \n<span>${teams[0].points}</span>`;
   team2El.innerHTML = `${teams[1].name} \n<span>${teams[1].points}</span>`;
+};
+
+const updatePoints = () => {
+  switch (roundNumber) {
+    case 4:
+      points = points * 2;
+      break;
+
+    case 5:
+      points = points * 3;
+      break;
+
+    default:
+      break;
+  }
+  currentTeam.points += points;
 };
 
 const updateSum = () => {
@@ -57,6 +92,7 @@ const updatePopup = () => {
 const finishRound = () => {
   submitButtonEl.disabled = true;
   updatePoints();
+  updateBoardPoints();
   updateSum();
   jsConfetti.addConfetti();
   updatePopup();
@@ -65,6 +101,7 @@ const finishRound = () => {
   setTimeout(() => {
     roundNumber++;
     popupEl.classList.add("popup-hide");
+    playAfterRoundSound();
   }, 6000);
 };
 
@@ -129,11 +166,9 @@ const handleAnswer = (e) => {
       mistakes === 3 ||
       mistakes === 4
     ) {
-      currentTeam.points += points;
       finishRound();
-
-      return;
     }
+    playCorrectSound();
   } else {
     mistakes += 1;
     mistakesEl.innerHTML = `Błędy: ${mistakes}`;
@@ -156,9 +191,9 @@ const handleAnswer = (e) => {
       currentTeam = firstTeam;
       currentTeamNumber = currentTeamNumber === 0 ? 1 : 0;
       updateActiveTeam();
-      currentTeam.points += points;
       finishRound();
     }
+    playFailSound();
   }
 };
 
@@ -228,7 +263,7 @@ const playTheGame = () => {
   console.log(questions);
   playRound(leftQuestions);
 
-  updatePoints();
+  updateBoardPoints();
 };
 
 playTheGame();
