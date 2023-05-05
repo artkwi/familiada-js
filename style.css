@@ -36,6 +36,7 @@ body {
 
 .game {
   text-align: center;
+  padding: 20px;
 }
 
 .question {
@@ -139,4 +140,34 @@ body {
 .btn-submit-answer:disabled {
   border: 2px solid white;
   color: white;
+}
+
+.popup {
+  opacity: 1;
+  display: block;
+  width: 500px;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  pointer-events: none;
+  /* top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); */
+  background-color: #131314;
+  padding: 50px 40px;
+  border: 2px solid #d8c657;
+  text-align: center;
+  transition: all 1s ease-out;
+}
+
+.popup-hide {
+  opacity: 0;
+  /* display: none; */
+}
+
+.popup-img {
+  display: block;
+  /* width: 400px; */
+  width: 100%;
+  margin: 30px auto 0 auto;
 }

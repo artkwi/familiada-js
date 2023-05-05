@@ -1,6 +1,9 @@
 import { Team } from "./Team.js";
 import { questions } from "./familiada-pytania.js";
 
+// it is number of images in assets/img/
+const IMAGES_NUMBERS = 8;
+
 const teamRed = new Team("Czerwoni");
 const teamBlue = new Team("Niebiescy");
 const teams = [teamRed, teamBlue];
@@ -15,6 +18,9 @@ const allAnswersEl = document.querySelector("#answers");
 const usersAnswersEl = document.querySelector("#users-answers");
 const formEl = document.querySelector("#answer-form");
 const submitButtonEl = document.querySelector("#submit-button");
+const popupEl = document.querySelector("#popup");
+const popupTitleEl = document.querySelector("#popup-title");
+const popupImgEl = document.querySelector("#popup-img");
 
 let _roundNumber = 1;
 let points = 0;
@@ -41,14 +47,25 @@ const updateSum = () => {
   pointsEl.innerHTML = `SUMA ${points}`;
 };
 
+const updatePopup = () => {
+  popupTitleEl.innerHTML = `Koniec rundy ${roundNumber}. <br /> Wygrała drużyna \"${currentTeam.name}\". <br /> Zdobyli ${points} punktów.`;
+  const randomImgNumber = Math.floor(Math.random() * (IMAGES_NUMBERS - 1)) + 1;
+  popupImgEl.src = `assets/img/${randomImgNumber}.jpeg`;
+  popupEl.classList.remove("popup-hide");
+};
+
 const finishRound = () => {
   submitButtonEl.disabled = true;
   updatePoints();
   updateSum();
   jsConfetti.addConfetti();
+  updatePopup();
 
   formEl.removeEventListener("submit", handleAnswer);
-  roundNumber++;
+  setTimeout(() => {
+    roundNumber++;
+    popupEl.classList.add("popup-hide");
+  }, 6000);
 };
 
 const initBoard = () => {
@@ -175,8 +192,6 @@ const playRound = (leftQuestions) => {
   delete leftQuestions[currentQuestion];
 
   formEl.addEventListener("submit", handleAnswer);
-
-  // while (mistakes < 3) {}
 };
 
 const playTheGame = () => {
@@ -201,10 +216,6 @@ const playTheGame = () => {
   playRound(leftQuestions);
 
   updatePoints();
-};
-
-const myFunction = () => {
-  console.log("zmieniono wartość");
 };
 
 playTheGame();
