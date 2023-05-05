@@ -68,6 +68,16 @@ const finishRound = () => {
   }, 6000);
 };
 
+const updateActiveTeam = () => {
+  if (currentTeamNumber === 0) {
+    team1El.classList.add("team-active");
+    team2El.classList.remove("team-active");
+  } else {
+    team2El.classList.add("team-active");
+    team1El.classList.remove("team-active");
+  }
+};
+
 const initBoard = () => {
   headingEl.innerHTML = `Familiada - runda ${_roundNumber}`;
   team1mistakesEl.innerHTML = "";
@@ -78,6 +88,7 @@ const initBoard = () => {
   allAnswersEl.replaceChildren([]);
   usersAnswersEl.replaceChildren([]);
   submitButtonEl.disabled = false;
+  updateActiveTeam();
 };
 
 const handleAnswer = (e) => {
@@ -137,12 +148,14 @@ const handleAnswer = (e) => {
     if (mistakes === 3) {
       currentTeam = secondTeam;
       currentTeamNumber = currentTeamNumber === 0 ? 1 : 0;
+      updateActiveTeam();
     }
 
     // 4 mistakes - first team win
     if (mistakes === 4) {
       currentTeam = firstTeam;
       currentTeamNumber = currentTeamNumber === 0 ? 1 : 0;
+      updateActiveTeam();
       currentTeam.points += points;
       finishRound();
     }
@@ -150,8 +163,6 @@ const handleAnswer = (e) => {
 };
 
 const playRound = (leftQuestions) => {
-  initBoard();
-
   // select teams answering order
   firstTeam = startingTeam;
   secondTeam = endingTeam;
@@ -161,6 +172,8 @@ const playRound = (leftQuestions) => {
     secondTeam = startingTeam;
     currentTeamNumber = startingTeamNumber === 0 ? 1 : 0;
   }
+
+  initBoard();
 
   currentTeam = firstTeam;
 
