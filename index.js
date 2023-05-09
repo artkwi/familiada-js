@@ -3,6 +3,8 @@ import { questions } from "./familiada-pytania.js";
 
 // it is number of images in assets/img/
 const IMAGES_NUMBERS = 8;
+const POINT_LIMIT = 300;
+const ROUNDS_NUMBER = 5;
 
 const teamRed = new Team("Czerwoni");
 const teamBlue = new Team("Niebiescy");
@@ -21,6 +23,9 @@ const submitButtonEl = document.querySelector("#submit-button");
 const popupEl = document.querySelector("#popup");
 const popupTitleEl = document.querySelector("#popup-title");
 const popupImgEl = document.querySelector("#popup-img");
+const popupEndEl = document.querySelector("#popup-end");
+const popupEndTitleEl = document.querySelector("#popup-end-title");
+const restartGameButtonEl = document.querySelector("#restart-game-btn");
 
 let _roundNumber = 1;
 let points = 0;
@@ -41,6 +46,10 @@ const jsConfetti = new JSConfetti();
 const audioFail = new Audio("assets/music/fail_v2.mp3");
 const audioCorrect = new Audio("assets/music/correct.mp3");
 const audioAfterRound = new Audio("assets/music/after-round.mp3");
+
+restartGameButtonEl.addEventListener("click", () => {
+  window.location.reload();
+});
 
 const playFailSound = () => {
   audioFail.currentTime = 0;
@@ -82,11 +91,32 @@ const updateSum = () => {
   pointsEl.innerHTML = `SUMA ${points}`;
 };
 
-const updatePopup = () => {
+const getWWinner = () => {
+  if (teamRed.points > teamBlue.points) {
+    return teamRed;
+  }
+  return teamBlue;
+};
+
+const updateRoundPopup = () => {
   popupTitleEl.innerHTML = `Koniec rundy ${roundNumber}. <br /> Wygrała drużyna \"${currentTeam.name}\". <br /> Zdobyli ${points} punktów.`;
   const randomImgNumber = Math.floor(Math.random() * (IMAGES_NUMBERS - 1)) + 1;
   popupImgEl.src = `assets/img/${randomImgNumber}.jpeg`;
   popupEl.classList.remove("popup-hide");
+};
+
+const updateEndPopup = () => {
+  const winner = getWWinner();
+  popupEndTitleEl.innerHTML = `Koniec gry. <br /> Wygrała drużyna \"${winner.name}\". <br /> Zdobyli ${winner.points} punktów. <br /> Gratulacje!`;
+  popupEndEl.classList.remove("popup-hide");
+};
+
+const updatePopup = () => {
+  if (roundNumber < ROUNDS_NUMBER && currentTeam.points < POINT_LIMIT) {
+    updateRoundPopup();
+  } else {
+    updateEndPopup();
+  }
 };
 
 const finishRound = () => {
@@ -116,7 +146,7 @@ const updateActiveTeam = () => {
 };
 
 const initBoard = () => {
-  headingEl.innerHTML = `Familiada - runda ${_roundNumber}`;
+  headingEl.innerHTML = `Familiada - runda ${_roundNumber} / ${ROUNDS_NUMBER}`;
   team1mistakesEl.innerHTML = "";
   team2mistakesEl.innerHTML = "";
   points = 0;
@@ -252,15 +282,12 @@ const playTheGame = () => {
     },
     set: function (value) {
       _roundNumber = value;
-      playRound(leftQuestions);
+      if (_roundNumber <= ROUNDS_NUMBER && currentTeam.points < POINT_LIMIT) {
+        playRound(leftQuestions);
+      }
     },
   });
 
-  console.log(
-    "🚀 ~ file: index.js:19 ~ playTheGame ~ leftQuestions:",
-    leftQuestions
-  );
-  console.log(questions);
   playRound(leftQuestions);
 
   updateBoardPoints();
