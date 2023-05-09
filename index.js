@@ -9,8 +9,8 @@ const ROUNDS_NUMBER = 5;
 const teamRed = new Team("Czerwoni");
 const teamBlue = new Team("Niebiescy");
 const teams = [teamRed, teamBlue];
+
 const pointsEl = document.querySelector("#points");
-const mistakesEl = document.querySelector("#mistakes");
 const team1El = document.querySelector("#team1");
 const team2El = document.querySelector("#team2");
 const team1mistakesEl = document.querySelector("#team1-mistakes");
@@ -46,6 +46,7 @@ const jsConfetti = new JSConfetti();
 const audioFail = new Audio("assets/music/fail_v2.mp3");
 const audioCorrect = new Audio("assets/music/correct.mp3");
 const audioAfterRound = new Audio("assets/music/after-round.mp3");
+const audioEndGame = new Audio("assets/music/outro.mp3");
 
 restartGameButtonEl.addEventListener("click", () => {
   window.location.reload();
@@ -64,6 +65,18 @@ const playCorrectSound = () => {
 const playAfterRoundSound = () => {
   audioAfterRound.currentTime = 0;
   audioAfterRound.play();
+};
+
+const playEndSound = () => {
+  audioEndGame.play();
+};
+
+const playMusic = () => {
+  if (roundNumber < ROUNDS_NUMBER && currentTeam.points < POINT_LIMIT) {
+    playAfterRoundSound();
+  } else {
+    playEndSound();
+  }
 };
 
 const updateBoardPoints = () => {
@@ -91,7 +104,7 @@ const updateSum = () => {
   pointsEl.innerHTML = `SUMA ${points}`;
 };
 
-const getWWinner = () => {
+const getWinner = () => {
   if (teamRed.points > teamBlue.points) {
     return teamRed;
   }
@@ -106,7 +119,7 @@ const updateRoundPopup = () => {
 };
 
 const updateEndPopup = () => {
-  const winner = getWWinner();
+  const winner = getWinner();
   popupEndTitleEl.innerHTML = `Koniec gry. <br /> Wygrała drużyna \"${winner.name}\". <br /> Zdobyli ${winner.points} punktów. <br /> Gratulacje!`;
   popupEndEl.classList.remove("popup-hide");
 };
@@ -129,9 +142,9 @@ const finishRound = () => {
 
   formEl.removeEventListener("submit", handleAnswer);
   setTimeout(() => {
+    playMusic();
     roundNumber++;
     popupEl.classList.add("popup-hide");
-    playAfterRoundSound();
   }, 6000);
 };
 
@@ -187,7 +200,7 @@ const handleAnswer = (e) => {
 
       usersAnswersElements[
         playerAnswer.lp - 1
-      ].innerHTML = `${playerAnswer.lp}. ${playerAnswer.ans}`;
+      ].innerHTML = `<span>${playerAnswer.lp}. ${playerAnswer.ans}</span><span>${playerAnswer.points}</span>`;
     }
 
     // all questions answered - current team win
@@ -201,7 +214,6 @@ const handleAnswer = (e) => {
     playCorrectSound();
   } else {
     mistakes += 1;
-    mistakesEl.innerHTML = `Błędy: ${mistakes}`;
 
     if (currentTeamNumber === 0) {
       team1mistakesEl.innerHTML += "x";

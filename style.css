@@ -113,6 +113,11 @@ body {
   margin: 0;
 }
 
+.users-answers li {
+  display: flex;
+  justify-content: space-between;
+}
+
 .answer-form {
   display: flex;
   flex-direction: column;
