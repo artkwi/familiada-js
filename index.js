@@ -26,6 +26,7 @@ const popupImgEl = document.querySelector("#popup-img");
 const popupEndEl = document.querySelector("#popup-end");
 const popupEndTitleEl = document.querySelector("#popup-end-title");
 const restartGameButtonEl = document.querySelector("#restart-game-btn");
+const popupNotSupportedeEl = document.querySelector("#popup-not-supported");
 
 let _roundNumber = 1;
 let points = 0;
@@ -45,12 +46,19 @@ const jsConfetti = new JSConfetti();
 
 const audioFail = new Audio("assets/music/fail_v2.mp3");
 const audioCorrect = new Audio("assets/music/correct.mp3");
+const audioIntro = new Audio("assets/music/familiada-intro.mp3");
 const audioAfterRound = new Audio("assets/music/after-round.mp3");
 const audioEndGame = new Audio("assets/music/outro.mp3");
 
 restartGameButtonEl.addEventListener("click", () => {
   window.location.reload();
 });
+
+const checkIfGamePlayable = () => {
+  if (window.innerWidth < 940) {
+    popupNotSupportedeEl.classList.remove("popup-hide");
+  }
+};
 
 const playFailSound = () => {
   audioFail.currentTime = 0;
@@ -60,6 +68,12 @@ const playFailSound = () => {
 const playCorrectSound = () => {
   audioCorrect.currentTime = 0;
   audioCorrect.play();
+};
+
+const playIntroSound = () => {
+  setTimeout(() => {
+    audioIntro.play();
+  }, 3000);
 };
 
 const playAfterRoundSound = () => {
@@ -286,6 +300,8 @@ const playRound = (leftQuestions) => {
 
 const playTheGame = () => {
   const leftQuestions = { ...questions };
+  playIntroSound();
+  checkIfGamePlayable();
 
   // observer for _roundNumber
   Object.defineProperty(window, "roundNumber", {

@@ -122,8 +122,8 @@ body {
 .answers-wrapper {
   visibility: visible;
   position: absolute;
-  bottom: 0;
-  left: 0;
+  bottom: 3px;
+  left: 3px;
   width: 265px;
   min-height: 200px;
 }
@@ -151,6 +151,7 @@ body {
   padding: 10px;
   background-color: #131314;
   border: 2px solid #d8c657;
+  background: linear-gradient(220deg, rgba(216,198,87,1) 0% 10%, #131314 14%);
 }
 
 .users-answers li {
@@ -172,6 +173,10 @@ body {
   padding: 12px 24px;
   background-color: black;
   color: #d8c657;
+}
+
+.input-submit-answer::placeholder {
+  color: #8b7f35;
 }
 
 .btn-submit-answer {
@@ -220,4 +225,9 @@ body {
   display: block;
   width: 100%;
   margin: 30px auto 0 auto;
+}
+
+.popup-not-supported {
+  width: 96%;
+  height: 96%;
 }

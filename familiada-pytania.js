@@ -470,7 +470,7 @@ export const questions = {
       points: 28,
     },
     {
-      ans: "Władysławowow",
+      ans: "Władysławowo",
       lp: 2,
       points: 20,
     },
@@ -564,7 +564,7 @@ export const questions = {
       points: 22,
     },
     {
-      ans: "Drożdzowiec",
+      ans: "Drożdżowiec",
       lp: 3,
       points: 21,
     },
