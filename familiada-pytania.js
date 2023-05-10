@@ -27,10 +27,10 @@ export const questions = {
       points: 7,
     },
   ],
-  "Co jest slodkie, a przy tym zdrowe?": [
+  "Co jest słodkie, a przy tym zdrowe?": [
     null,
     {
-      ans: "Miod",
+      ans: "Miód",
       lp: 1,
       points: 51,
     },
@@ -50,7 +50,7 @@ export const questions = {
       points: 11,
     },
     {
-      ans: "Pocalunek",
+      ans: "Pocałunek",
       lp: 5,
       points: 9,
     },
@@ -63,7 +63,7 @@ export const questions = {
       points: 24,
     },
     {
-      ans: "Prosbe",
+      ans: "Prośbę",
       lp: 2,
       points: 22,
     },
@@ -73,7 +73,7 @@ export const questions = {
       points: 19,
     },
     {
-      ans: "Zal",
+      ans: "Żal",
       lp: 4,
       points: 15,
     },
@@ -83,7 +83,7 @@ export const questions = {
       points: 7,
     },
     {
-      ans: "Slabosc",
+      ans: "Słabość",
       lp: 6,
       points: 6,
     },
@@ -101,12 +101,12 @@ export const questions = {
       points: 23,
     },
     {
-      ans: "Kon",
+      ans: "Koń",
       lp: 3,
       points: 10,
     },
     {
-      ans: "Rolnik",
+      ans: "Koza",
       lp: 4,
       points: 1,
     },
@@ -129,17 +129,17 @@ export const questions = {
       points: 18,
     },
     {
-      ans: "Mydlo",
+      ans: "Mydło",
       lp: 4,
       points: 16,
     },
     {
-      ans: "Pasta do zebow",
+      ans: "Pasta do zębów",
       lp: 5,
       points: 10,
     },
     {
-      ans: "Plyn do zmywania",
+      ans: "Płyn do zmywania",
       lp: 6,
       points: 6,
     },
@@ -208,7 +208,7 @@ export const questions = {
       points: 30,
     },
     {
-      ans: "Dziela",
+      ans: "Dzieła",
       lp: 2,
       points: 21,
     },
@@ -223,12 +223,12 @@ export const questions = {
       points: 11,
     },
     {
-      ans: "Data smierci",
+      ans: "Data śmierci",
       lp: 5,
       points: 9,
     },
     {
-      ans: "Fakty z zycia",
+      ans: "Fakty z życia",
       lp: 6,
       points: 6,
     },
@@ -241,7 +241,7 @@ export const questions = {
       points: 28,
     },
     {
-      ans: "Papierosow",
+      ans: "Papierosów",
       lp: 2,
       points: 17,
     },
@@ -251,7 +251,7 @@ export const questions = {
       points: 16,
     },
     {
-      ans: "Maki",
+      ans: "Mąki",
       lp: 4,
       points: 12,
     },
@@ -269,32 +269,32 @@ export const questions = {
   "Film który zaczyna się od słowa 'Dzień'?": [
     null,
     {
-      ans: "Dzien Swira",
+      ans: "Dzień Świra",
       lp: 1,
       points: 28,
     },
     {
-      ans: "Dzien niepodleglosci",
+      ans: "Dzień niepodległości",
       lp: 2,
       points: 21,
     },
     {
-      ans: "Dzien Swistaka",
+      ans: "Dzień Świstaka",
       lp: 3,
       points: 18,
     },
     {
-      ans: "Dzien Szakala",
+      ans: "Dzień Szakala",
       lp: 4,
       points: 10,
     },
     {
-      ans: "Dzien Ojca",
+      ans: "Dzień Ojca",
       lp: 5,
       points: 8,
     },
     {
-      ans: "Dzien Proby",
+      ans: "Dzień Próby",
       lp: 6,
       points: 5,
     },
@@ -325,12 +325,12 @@ export const questions = {
       points: 23,
     },
     {
-      ans: "Niewidzialnosc",
+      ans: "Niewidzialność",
       lp: 2,
       points: 18,
     },
     {
-      ans: "Sila",
+      ans: "Siła",
       lp: 3,
       points: 17,
     },
@@ -340,25 +340,25 @@ export const questions = {
       points: 13,
     },
     {
-      ans: "Czytanie w myslach",
+      ans: "Czytanie w myślach",
       lp: 5,
       points: 12,
     },
     {
-      ans: "Szybkosc",
+      ans: "Szybkość",
       lp: 6,
       points: 10,
     },
   ],
-  "Kogo i czego potrzebowalibyscie do nakrecenia filmu?": [
+  "Kogo i czego potrzebowalibyście do nakrecenia filmu?": [
     null,
     {
-      ans: "Aktorow",
+      ans: "Aktorów",
       lp: 1,
       points: 27,
     },
     {
-      ans: "Rezysera",
+      ans: "Reżysera",
       lp: 2,
       points: 20,
     },
@@ -378,7 +378,7 @@ export const questions = {
       points: 11,
     },
     {
-      ans: "Kateringu",
+      ans: "Studia",
       lp: 6,
       points: 9,
     },
@@ -406,7 +406,7 @@ export const questions = {
       points: 18,
     },
     {
-      ans: "Lodowka",
+      ans: "Lodówka",
       lp: 5,
       points: 7,
     },
@@ -416,7 +416,7 @@ export const questions = {
       points: 6,
     },
   ],
-  "Ozdoba meskiej szyi?": [
+  "Ozdoba męskiej szyi?": [
     null,
     {
       ans: "Krawat",
@@ -439,7 +439,7 @@ export const questions = {
       points: 10,
     },
     {
-      ans: "Lancuszek",
+      ans: "Łańcuszek",
       lp: 5,
       points: 6,
     },
@@ -447,7 +447,7 @@ export const questions = {
   "Po co w coś dmuchamy?": [
     null,
     {
-      ans: "Zgasic",
+      ans: "Zgasić",
       lp: 1,
       points: 46,
     },
@@ -457,7 +457,7 @@ export const questions = {
       points: 30,
     },
     {
-      ans: "Napompowac",
+      ans: "Napompować",
       lp: 3,
       points: 23,
     },
@@ -470,7 +470,7 @@ export const questions = {
       points: 28,
     },
     {
-      ans: "Wladyslawowow",
+      ans: "Władysławowow",
       lp: 2,
       points: 20,
     },
@@ -480,12 +480,12 @@ export const questions = {
       points: 17,
     },
     {
-      ans: "Chalupy",
+      ans: "Chałupy",
       lp: 4,
       points: 17,
     },
     {
-      ans: "Kolobrzeg",
+      ans: "Kołobrzeg",
       lp: 5,
       points: 9,
     },
@@ -495,30 +495,30 @@ export const questions = {
       points: 6,
     },
   ],
-  "Potocznie ukrasc?": [
+  "Potocznie ukraść?": [
     null,
     {
-      ans: "Gwizdnac",
+      ans: "Gwizdnać",
       lp: 1,
       points: 29,
     },
     {
-      ans: "Buchnac",
+      ans: "Buchnać",
       lp: 2,
       points: 26,
     },
     {
-      ans: "Zwedzic",
+      ans: "Zwędzić",
       lp: 3,
       points: 19,
     },
     {
-      ans: "Zakosic",
+      ans: "Zakosić",
       lp: 4,
       points: 13,
     },
     {
-      ans: "Podprowadzic",
+      ans: "Podprowadzić",
       lp: 5,
       points: 6,
     },
@@ -564,7 +564,7 @@ export const questions = {
       points: 22,
     },
     {
-      ans: "Drozdzowiec",
+      ans: "Drożdzowiec",
       lp: 3,
       points: 21,
     },
@@ -582,7 +582,7 @@ export const questions = {
   "Wymień rodzaje samolotów?": [
     null,
     {
-      ans: "Pasazerski",
+      ans: "Pasażerski",
       lp: 1,
       points: 25,
     },
@@ -592,7 +592,7 @@ export const questions = {
       points: 24,
     },
     {
-      ans: "Mysliwski",
+      ans: "Myśliwski",
       lp: 3,
       points: 22,
     },
@@ -648,7 +648,7 @@ export const questions = {
       points: 20,
     },
     {
-      ans: "Nozyce",
+      ans: "Nożyce",
       lp: 3,
       points: 16,
     },

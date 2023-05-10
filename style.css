@@ -32,11 +32,16 @@ body {
   font-family: monospace, "raleway-dots";
   text-transform: uppercase;
   color: #d8c657;
+  background: rgb(232,127,231);
+  background: linear-gradient(0deg, rgba(176 95 175) 0%, rgba(41,29,41,1) 100%);
+  min-height: 100vh;
 }
 
 .game {
   text-align: center;
   padding: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 .question {
@@ -44,8 +49,9 @@ body {
 }
 
 .board {
+  position: relative;
   background: #131314;
-  margin: 20px 40px;
+  margin: 40px;
   border: 10px outset #6f5ac8;
 }
 
@@ -113,6 +119,40 @@ body {
   margin: 0;
 }
 
+.answers-wrapper {
+  visibility: visible;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 265px;
+  min-height: 200px;
+}
+
+.answers-wrapper:hover .answers-overlay {
+  visibility: hidden;
+}
+
+.answers {
+  position: relative;
+  padding: 20px;
+}
+
+.answers-overlay {
+  position: absolute;
+  z-index: 5;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 10px;
+  background-color: #131314;
+  border: 2px solid #d8c657;
+}
+
 .users-answers li {
   display: flex;
   justify-content: space-between;
@@ -123,7 +163,7 @@ body {
   flex-direction: column;
   align-items: stretch;
   width: 240px;
-  margin: 30px auto;
+  margin: 30px auto 96px auto;
   gap: 20px;
 }
 
