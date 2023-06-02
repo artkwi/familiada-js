@@ -87,7 +87,9 @@ addEventListener("DOMContentLoaded", () => {
   };
 
   const updatePopup = () => {
-    if (roundNumber < ROUNDS_NUMBER && currentTeam.points < POINT_LIMIT) {
+    const isGameContinue =
+      roundNumber < ROUNDS_NUMBER && currentTeam.points < POINT_LIMIT;
+    if (isGameContinue) {
       popupManager.updateRoundPopup(roundNumber, currentTeam, points);
     } else {
       popupManager.updateEndPopup(getWinner());
@@ -146,7 +148,7 @@ addEventListener("DOMContentLoaded", () => {
       (answer) => answer.ans.toLowerCase() === currentAnswerText.toLowerCase()
     );
 
-    if (playerAnswer) {
+    const handleCorrectAnswer = () => {
       points += playerAnswer.points;
       updateSum();
 
@@ -178,7 +180,9 @@ addEventListener("DOMContentLoaded", () => {
         finishRound();
       }
       audioManager.playCorrectSound();
-    } else {
+    };
+
+    const handleWrongAnswer = () => {
       mistakes += 1;
 
       if (currentTeamNumber === 0) {
@@ -202,19 +206,28 @@ addEventListener("DOMContentLoaded", () => {
         finishRound();
       }
       audioManager.playFailSound();
+    };
+
+    if (playerAnswer) {
+      handleCorrectAnswer();
+    } else {
+      handleWrongAnswer();
     }
   };
 
-  const playRound = (leftQuestions) => {
+  const chooseTeams = () => {
     // select teams answering order
     firstTeam = startingTeam;
     secondTeam = endingTeam;
-
     if (_roundNumber % 2 == 0) {
       firstTeam = endingTeam;
       secondTeam = startingTeam;
       currentTeamNumber = startingTeamNumber === 0 ? 1 : 0;
     }
+  };
+
+  const playRound = (leftQuestions) => {
+    chooseTeams();
 
     initBoard();
 
