@@ -1,15 +1,16 @@
 import { Team } from "./Team.js";
 import { questions } from "./familiada-pytania.js";
 import { AudioManager } from "./AudioManager.js";
+import { PopupManager } from "./PopupManager.js";
 
 // it is number of images in assets/img/
-const IMAGES_NUMBERS = 8;
+export const IMAGES_NUMBERS = 8;
 const POINT_LIMIT = 300;
 const ROUNDS_NUMBER = 5;
 
-const audioManager = new AudioManager();
-
 addEventListener("DOMContentLoaded", () => {
+  const audioManager = new AudioManager();
+  const popupManager = new PopupManager();
   const teamRed = new Team("Czerwoni");
   const teamBlue = new Team("Niebiescy");
   const teams = [teamRed, teamBlue];
@@ -24,11 +25,6 @@ addEventListener("DOMContentLoaded", () => {
   const usersAnswersEl = document.querySelector("#users-answers");
   const formEl = document.querySelector("#answer-form");
   const submitButtonEl = document.querySelector("#submit-button");
-  const popupEl = document.querySelector("#popup");
-  const popupTitleEl = document.querySelector("#popup-title");
-  const popupImgEl = document.querySelector("#popup-img");
-  const popupEndEl = document.querySelector("#popup-end");
-  const popupEndTitleEl = document.querySelector("#popup-end-title");
   const restartGameButtonEl = document.querySelector("#restart-game-btn");
   const popupNotSupportedeEl = document.querySelector("#popup-not-supported");
 
@@ -54,7 +50,7 @@ addEventListener("DOMContentLoaded", () => {
 
   const checkIfGamePlayable = () => {
     if (window.innerWidth < 940) {
-      popupNotSupportedeEl.classList.remove("popup-hide");
+      popupManager.hideNotSupportedePopup();
     }
   };
 
@@ -90,25 +86,11 @@ addEventListener("DOMContentLoaded", () => {
     return teamBlue;
   };
 
-  const updateRoundPopup = () => {
-    popupTitleEl.innerHTML = `Koniec rundy ${roundNumber}. <br /> Wygrała drużyna \"${currentTeam.name}\". <br /> Zdobyli ${points} punktów.`;
-    const randomImgNumber =
-      Math.floor(Math.random() * (IMAGES_NUMBERS - 1)) + 1;
-    popupImgEl.src = `assets/img/${randomImgNumber}.jpeg`;
-    popupEl.classList.remove("popup-hide");
-  };
-
-  const updateEndPopup = () => {
-    const winner = getWinner();
-    popupEndTitleEl.innerHTML = `Koniec gry. <br /> Wygrała drużyna \"${winner.name}\". <br /> Zdobyli ${winner.points} punktów. <br /> Gratulacje!`;
-    popupEndEl.classList.remove("popup-hide");
-  };
-
   const updatePopup = () => {
     if (roundNumber < ROUNDS_NUMBER && currentTeam.points < POINT_LIMIT) {
-      updateRoundPopup();
+      popupManager.updateRoundPopup(roundNumber, currentTeam, points);
     } else {
-      updateEndPopup();
+      popupManager.updateEndPopup(getWinner());
     }
   };
 
@@ -127,7 +109,7 @@ addEventListener("DOMContentLoaded", () => {
 
       audioManager.playMusic(isGameContinue);
       roundNumber++;
-      popupEl.classList.add("popup-hide");
+      popupManager.hideRoundAndEndPopup();
     }, 6000);
   };
 
