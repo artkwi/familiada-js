@@ -26,7 +26,6 @@ addEventListener("DOMContentLoaded", () => {
   const formEl = document.querySelector("#answer-form");
   const submitButtonEl = document.querySelector("#submit-button");
   const restartGameButtonEl = document.querySelector("#restart-game-btn");
-  const popupNotSupportedeEl = document.querySelector("#popup-not-supported");
 
   let _roundNumber = 1;
   let points = 0;
@@ -50,7 +49,7 @@ addEventListener("DOMContentLoaded", () => {
 
   const checkIfGamePlayable = () => {
     if (window.innerWidth < 940) {
-      popupManager.hideNotSupportedePopup();
+      popupManager.hideNotSupportedPopup();
     }
   };
 

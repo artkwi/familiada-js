@@ -5,7 +5,7 @@ const popupTitleEl = document.querySelector("#popup-title");
 const popupImgEl = document.querySelector("#popup-img");
 const popupEndTitleEl = document.querySelector("#popup-end-title");
 const popupEndEl = document.querySelector("#popup-end");
-const popupNotSupportedeEl = document.querySelector("#popup-not-supported");
+const popupNotSupportedEl = document.querySelector("#popup-not-supported");
 
 export class PopupManager {
   updateRoundPopup(roundNumber, currentTeam, points) {
@@ -25,7 +25,7 @@ export class PopupManager {
     popupEl.classList.add("popup-hide");
   }
 
-  hideNotSupportedePopup() {
-    popupNotSupportedeEl.classList.remove("popup-hide");
+  hideNotSupportedPopup() {
+    popupNotSupportedEl.classList.remove("popup-hide");
   }
 }
